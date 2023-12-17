@@ -9,7 +9,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '木制工作站',
-  tagline: '博客 文档',
+  tagline: '一颗丁子的个人博客和教程、产品文档储存地',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -68,7 +68,7 @@ const config = {
       navbar: {
         title: '木制工作站',
         logo: {
-          alt: '木制工作站 Logo',
+          alt: 'Logo',
           src: 'img/logo.svg',
         },
         items: [
