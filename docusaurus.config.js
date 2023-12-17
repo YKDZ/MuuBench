@@ -76,7 +76,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: '教程',
+            label: '教程合集',
           },
           {to: '/blog', label: '博客', position: 'left'},
           {
@@ -90,11 +90,15 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: '教程',
+            title: '文档',
             items: [
               {
-                label: '教程',
-                to: '/docs/intro',
+                label: '产品文档',
+                to: '/docs/document/intro',
+              },
+              {
+                label: '教程合集',
+                to: '/docs/tutorial/set-up-docusaurus-with-git',
               },
             ],
           },
@@ -119,7 +123,7 @@ const config = {
             title: '更多',
             items: [
               {
-                label: '播控',
+                label: '博客',
                 to: '/blog',
               },
               {
