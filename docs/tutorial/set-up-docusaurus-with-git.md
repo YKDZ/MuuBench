@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # 使用 Docusaurus + Git 优雅地搭建自己的文档和博客站点
 
+一篇关于如何搭建 Docusaurus 的教程。使用了 Git 工具与 Nginx 中端等。
+
 ## 前言
 
 Docusaurus 是一个现代且高效的静态网页生成器，专注于文档和博客的生成。使用 Docusaurus，站长可以不必过于关注站点的外观，而专注于内容的撰写。不论是发布产品文档、维护 Minecraft 服务器维基，还是编写个人博客，Docusaurus 都可以为我们节省很多时间，同时其简约大气的外观风格也十分贴合现代网站设计审美。
@@ -22,6 +24,7 @@ Docusaurus 的外观基于 React 框架构建，而编写内容则使用 Markdow
 - Nginx：云服务器使用的反向代理服务
 
 ## 正文
+
 ### 一 进入控制台
 
 首先，使用 SSH 工具连接到云服务器的控制台：

@@ -2,6 +2,7 @@
   "label": "产品文档",
   "position": 2,
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "description": "在这个分类中查找一颗丁子制作的各类产品的文档。"
   }
 }
