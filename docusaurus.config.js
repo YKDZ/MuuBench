@@ -8,7 +8,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: '木制工作站',
+  title: '木质工作站',
   tagline: '一颗丁子的个人博客与教程和产品文档储存地',
   favicon: 'img/favicon.ico',
 
@@ -66,7 +66,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: '木制工作站',
+        title: '木质工作站',
         logo: {
           alt: 'Logo',
           src: 'img/logo.svg',
