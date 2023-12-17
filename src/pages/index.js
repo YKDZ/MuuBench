@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="一颗丁子的个人博客和教程、产品文档储存地">
+      description="一颗丁子的个人博客与教程和产品文档储存地">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
