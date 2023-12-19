@@ -48,6 +48,8 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          blogSidebarTitle: '所有帖子',
+          blogSidebarCount: 'ALL',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
