@@ -21,7 +21,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'YKDZ', // Usually your GitHub org/user name.
-  projectName: 'CraftBench', // Usually your repo name.
+  projectName: 'MuuBench', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -80,7 +80,7 @@ const config = {
           },
           {to: '/blog', label: '博客', position: 'left'},
           {
-            href: 'https://github.com/YKDZ/CraftBench',
+            href: 'https://github.com/YKDZ/MuuBench',
             label: '储存库',
             position: 'right',
           },
@@ -128,7 +128,7 @@ const config = {
               },
               {
                 label: '储存库',
-                href: 'https://github.com/YKDZ/CraftBench',
+                href: 'https://github.com/YKDZ/MuuBench',
               },
             ],
           },
