@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -34,6 +34,68 @@ const config = {
     locales: ['zh-Hans'],
   },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/img/docusaurus.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: 'rgb(37, 194, 160)',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-status-bar-style',
+            content: '#000',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: '/img/docusaurus.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'mask-icon',
+            href: '/img/docusaurus.svg',
+            color: 'rgb(37, 194, 160)',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileImage',
+            content: '/img/docusaurus.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileColor',
+            content: '#000',
+          },
+        ],
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -47,6 +109,8 @@ const config = {
           //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
+          blogTitle: '一颗丁子的博客',
+          blogDescription: '记录一颗丁子学习生活的点点滴滴',
           showReadingTime: true,
           blogSidebarTitle: '所有帖子',
           blogSidebarCount: 'ALL',
@@ -76,14 +140,28 @@ const config = {
         items: [
           {
             type: 'docSidebar',
+            sidebarId: 'documentSidebar',
+            position: 'left',
+            label: '产品文档',
+          },
+          {
+            type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: '教程合集',
           },
-          {to: '/blog', label: '博客', position: 'left'},
+          { 
+            to: '/blog', 
+            label: '博客', 
+            position: 'left' 
+          },
+          {
+            to: '/contact',
+            label: '联系',
+            position: 'right',
+          },
           {
             href: 'https://github.com/YKDZ/MuuBench',
-            label: '储存库',
             position: 'right',
           },
         ],
@@ -91,34 +169,27 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: '文档',
-            items: [
-              {
-                label: '产品文档',
-                to: '/docs/document/intro',
-              },
-              {
-                label: '教程合集',
-                to: '/docs/tutorial/set-up-docusaurus-with-git',
-              },
-            ],
-          },
           // {
-          //   title: 'Community',
+          //   title: '文档',
           //   items: [
           //     {
-          //       label: 'Stack Overflow',
-          //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+          //       label: '产品文档',
+          //       to: '/docs/document/intro',
           //     },
           //     {
-          //       label: 'Discord',
-          //       href: 'https://discordapp.com/invite/docusaurus',
+          //       type: ''
+          //       label: '教程合集',
+          //       to: '/docs/tutorial/set-up-docusaurus-with-git',
           //     },
+          //   ],
+          // },
+          // {
+          //   title: '联系',
+          //   items: [
           //     {
-          //       label: 'Twitter',
-          //       href: 'https://twitter.com/docusaurus',
-          //     },
+          //       label: 'Github',
+          //       href: 'https://github.com/YKDZ',
+          //     }
           //   ],
           // },
           {
@@ -141,7 +212,11 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      metadata: [
+        { name: 'keywords', content: 'technique, blog, web, CSDN' },
+      ],
     }),
 };
 
 export default config;
+

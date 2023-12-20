@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+description: 用五分钟了解这个站点
 ---
 
-# 了解这个站点
+# 关于 MuuBench
 
 ## 是什么
 

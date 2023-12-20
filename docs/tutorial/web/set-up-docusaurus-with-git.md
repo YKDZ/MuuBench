@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+description: 一篇关于如何搭建 Docusaurus 的教程。使用了 Git 工具与 Nginx 中端等。
 ---
 
 # 使用 Docusaurus + Git 优雅地搭建自己的文档和博客站点
@@ -12,20 +12,34 @@ sidebar_position: 1
 
 Docusaurus 是一个现代且高效的静态网页生成器，专注于文档和博客的生成。使用 Docusaurus，站长可以不必过于关注站点的外观，而专注于内容的撰写。不论是发布产品文档、维护 Minecraft 服务器维基，还是编写个人博客，Docusaurus 都可以为我们节省很多时间，同时其简约大气的外观风格也十分贴合现代网站设计审美。
 
-Docusaurus 的外观基于 React 框架构建，而编写内容则使用 Markdown 格式。所有内容 100% 可自定义，且支持自动目录生成、版本分离、中文搜索、翻译和 SEO 等附加功能。
+Docusaurus 的基于 React 框架构建，编写文本内容支持 Markdown 与 MDX 格式。所有内容 100% 可自定义，且支持自定义 CSS、自动目录生成、多目录、版本分离、中文搜索、翻译和多实例等大量附加功能，同时内置 SEO 优化策略与 PWA 实现。
 
 在本文中，我们将在一个使用 Centos 8 Stream 的云服务器中配置 Docusaurus 的运行环境并部署 Docusaurus 服务本体。之后，我们将使用 Nginx 将我们的站点绑定到特定的子域名。最后，我们将使用 Git 工具 + GitHub 储存库管理站点，以达到文档和博客的“本地编辑、实时预览、多端同步、快速更新”的效果。
 
 笔者用到的部分软件环境：
 
-- Xshell 7 家庭版：SSH 工具
-- Xftp 7 家庭版：FTP 工具
-- Visual Studio Code：本地文本编辑器
-- Windows 11：本地电脑系统
-- Centos 8 Stream Server：云服务器使用的系统
-- Nginx：云服务器使用的反向代理服务
+- SSH 工具：Xshell 7 家庭版
+- FTP 工具：Xftp 7 家庭版
+- 本地文本编辑器：Visual Studio Code
+- 本地电脑系统：Windows 11
+- 云服务器使用的系统：Centos 8 Stream Server
+- 云服务器使用的中端服务器：Nginx
 
 ## 正文
+
+### 零 环境准备
+
+显然，我们需要购买一台云服务器与一个域名，并完成域名的 ICP 备案与公安局备案，才能自己的 Docusaurus 站点对外提供服务。
+
+首先，对于购买云服务器，你可以选择阿里云、腾讯云等大服务商，它们可以为你提供包括购买云服务器、购买域名、DNS 解析与域名备案在内的一条龙服务。本站点实际上就运行在一台阿里云的**经济型 e 实例**服务器上（年租 99 元），配置如下：
+
+- 2 核 (vCPU)
+- 2 GiB
+- 3Mbps
+
+同时，为了让你的站点更像样，你显然也需要一个解析到你站点云服务器 IP 地址的域名。本站点的域名 **muubench.cn** 也是在阿里云购买（域名年租 33 元）。
+
+最后，为了在中国境内提供服务，你还需要对你的域名进行实名认证并备案。本站点的备案过程整理在 [这篇博客](/blog/2023/12/19/about-icp) 中，你可以参考其中的流程提前进行准备（注意备案流程随着你的备案地点变化而变化，本域名在广东备案）。
 
 ### 一 进入控制台
 
@@ -33,20 +47,30 @@ Docusaurus 的外观基于 React 框架构建，而编写内容则使用 Markdow
 
 ![Xshell 界面](./img/set-up-docusaurus-with-git/xshell_interface.png)
 
-（为了方便，我实际上只是在一个 VMware 中的 Centos 虚拟机上进行操作）
 （对于大部分云服务器，我们都可以直接用 root 用户进行登录，自然也不用手动获取 root 权限了）
 
-之后，使用 FTP 工具连接到云服务器，方便之后进行文件的编辑：
+:::info
+
+SSH 全名 Secure Shell，是一种加密的客户端 - 服务器间连接和数据传输协议，常用于远程连接云服务器等需要保证安全性的场景中。支持密码、密钥和双因素等多种认证方式。
+
+下文的 SFTP 就是 SSH 协议的一个子协议，利用 SSH 的传输层协议提供文件访问、传输和管理的功能。
+
+:::
+
+之后，使用 SFTP 工具连接到云服务器，方便之后进行文件的编辑：
 
 ![Xftp 界面](./img/set-up-docusaurus-with-git/xftp_interface.png)
 
-（别忘了在 Xftp 设置中配置本地文本编辑器，否则文本默认用记事本打开）
+别忘了在 Xftp 设置中配置双击动作和本地文本编辑器，否则双击文件默认仅下载到本地，且文本默认用记事本打开（设置位于**工具 - 选项**中）：
+
+![Xftp 设置](img/set-up-docusaurus-with-git/xftp_click_setting.png)
+![Xftp 设置](img/set-up-docusaurus-with-git/xftp_editor_setting.png)
 
 ### 二 配置云服务器环境
 
 Docusaurus 实际上是依赖于 Node.js 环境运行的一组 npm 软件包，所以我们需要先安装它们两者。
 
-在控制台执行以下命令，安装 NodeSource 仓库：
+在控制台执行以下命令，安装 NodeSource 仓库（Docusaurus 需要 Node.js 18 才能正常运行）：
 
 ```shell
 curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
@@ -71,6 +95,14 @@ npm -v
 
 若出现问题，请复制安装过程中的报错信息并在搜索引擎中寻找解决方案，抑或是询问 ChatGPT。
 
+:::info
+
+Node.js 是一个跨平台的 JavaScript 运行时环境，用于在浏览器外运行 JavaScript 代码。
+
+在本例的语境下，Node.js 实际上在服务端工作。使用 Node.js 替代传统的 PHP 后端可以保证开发的一致性（站点前端与后端使用同一种语编写）。
+
+:::
+
 ### 三 部署 Docusaurus
 
 接着，我们要在自己的网站根目录中部署 Docusaurus 服务。
@@ -88,7 +120,7 @@ cd /var/www
 npx create-docusaurus@latest 你的站点名 classic
 ```
 
-其中“你的站点名”可以替换为某个英文字符串（本文为 docusaurus）。
+其中「你的站点名」可以替换为某个英文字符串（本文为 docusaurus）。
 
 （安装过程中可能需要输入 y 表示同意安装）
 
@@ -113,11 +145,9 @@ npm run build
 
 ![build 文件夹](./img/set-up-docusaurus-with-git/docusaurus_file_build.png)
 
-### 四 Nginx 反向代理
+### 四 Nginx 配置
 
-接下来，我们需要使用 Nginx 将站点绑定到子域名。
-
-（注意，以下操作默认你已经购买了域名并知道如何添加 A 记录和申请免费的 SSL 证书）
+接下来，我们需要使用 Nginx 将站点绑定到域名。
 
 首先，我们可以通过以下命令安装 Nginx：
 
@@ -140,9 +170,9 @@ systemctl enable nginx
 
 ![此处名为 docusaurus.conf](./img/set-up-docusaurus-with-git/nginx_config.png)
 
-之后，在文件中添加以下内容：
+之后，在文件中添加以下内容（其中 SSL 证书相关文件的路径记得改为你自己的存放路径）：
 
-```yml
+```nginx title="/conf.d/docusaurus.conf"
 # 将来自 80 端口的 http 请求重定向到 https
 server {
     listen 80;
@@ -150,19 +180,23 @@ server {
     return 301 https://$host$request_uri;
 }
 
-# https 站点配置
+# https 请求配置
 server {
     listen 443 ssl http2;
-    server_name wiki.encmys.cn; # 你的站点域名
-    ssl_certificate  /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn_bundle.crt; # 指定 SSL 证书文件的路径
-    ssl_certificate_key /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn.key; # 指定 SSL 私钥文件的路径
+    # 你的站点域名或子域名
+    server_name wiki.encmys.cn;
+    # 指定 SSL 证书文件的路径 公钥文件后缀还可能是 .crt
+    ssl_certificate  /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn_bundle.pem;
+    # 指定 SSL 私钥文件的路径
+    ssl_certificate_key /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn.key;
     ssl_session_timeout 5m;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
 
     location / {
-        root /var/www/docusaurus/build; # 你的站点 build 目录位置
+        # 你的站点 build 目录路径
+        root /var/www/docusaurus/build;
         index index.html index.htm index.php;
     }
 }
@@ -170,7 +204,7 @@ server {
 
 （如果获取 SSL 证书有困难，这里还有一份不使用 https 连接的配置：）
 
-```yml
+```nginx title="/conf.d/docusaurus.conf"
 # http 站点配置
 server {
     listen 80;
@@ -183,6 +217,14 @@ server {
 }
 ```
 
+:::info
+
+HTTPS 是在 HTTP 协议的基础上使用 SSL/TLS 对传输内容进行加密的协议。主要用于确保客户收到的网站信息没有被恶意篡改。现代的浏览器基本都会对不支持 HTTPS 连接的网站进行限制（提示用户此网站不安全等）。
+
+在 HTTPS 协议的握手过程中，服务端通过 SSL/TLS 对数据进行非对称加密。客户端收到公钥后，首先验证公钥中储存的 SSL 证书信息的真实性，之后用收到的公钥对密钥进行加密。之后，客户端将加密的密钥发回服务器。服务器将用自己的私钥对这个密钥进行解密。这样，客户端和服务端就在保证安全的情况下获得了一对相同的密钥，用于对之后交换的数据进行加密和解密。
+
+:::
+
 之后，保存文件，并使用以下命令重载 Nginx 服务：
 
 ```shell
@@ -193,15 +235,31 @@ systemctl restart nginx
 
 ![右键 build 目录找到更改权限选项](./img/set-up-docusaurus-with-git/build_file_permission.png)
 
+:::info
+
+Nginx 是一个轻量的 Web 服务器，在本例中的用途为将生成好的静态网页文件发送回请求它的客户端浏览器。当然，Nginx 也可以用于执行 PHP 脚本并返回动态的网页内容。
+
+与同类的 Apache 相比，Nginx 更轻量且配置文件格式更简单。
+
+:::
+
+之后，前往域名的 DNS 解析控制台，将域名（子域名）解析到你云服务器的 IP 地址。
+
+最后，前往云服务器安全组控制台，放通 80 与 443 端口的入站流量（如果你的云服务器上还有内置的防火墙服务，如 firewalld 与 iptables 等，也需要在其中放通所需的所有端口）。
+
 这时，你的站点应该已经可以使用域名正常访问了：
 
 ![https 连接也正常运行](./img/set-up-docusaurus-with-git/https_work_well.png)
 
 ### 五 Git + GitHub 文档管理
 
-给不了解 Git 工具的读者：Git 是一种版本控制系统，用于跟踪文件和项目在时间轴上的变化，并允许多个开发者协同工作。GitHub 则是一个基于 Git 的代码托管平台，提供了存储、管理和协作开发项目的功能。
+在本例中，我们使用 Git 来将 Docusaurus 项目托管在 GitHub 储存库中，方便我们在本地对站点进行编辑与测试。这可以避免直接修改云服务器上的站点文件，更加安全且高效，还可以充分利用 Docusaurus 自带的支持实时更新的网页应用进行测试。
 
-在当前场景下，我们使用 Git 来将 Docusaurus 项目托管在 GitHub 储存库中，方便我们在本地对站点进行编辑与测试。这可以避免直接修改云服务器上的站点文件，更加安全且高效，还可以充分利用 Docusaurus 自带的支持实时更新的网页应用进行测试。
+:::info
+
+Git 是一种版本控制系统，可以基于目录建立本地仓库，自动跟踪和记录文件的变化并储存编写完成的文件。GitHub 则是一个基于 Git 的代码托管平台，提供了存储、管理和协作开发项目的功能。
+
+:::
 
 首先，前往 GitHub 新建一个储存仓库：
 
@@ -427,7 +485,7 @@ npm run build
 
 在本地仓库中新建一个脚本文件，并写入一段简单的 shell 脚本：
 
-```shell
+```shell title="update.sh"
 #!/bin/bash
 
 # 拉取远程仓库的最新内容到本地的 main 分支
@@ -441,7 +499,6 @@ git merge origin/main
 
 # 执行 npm run build 命令
 npm run build
-（作用为拉取远程仓库的内容并重新生成静态网页文件）
 ```
 
 接着，将这个脚本提交并推送到远程仓库：
@@ -463,7 +520,7 @@ bash update.sh
 
 ## 后记
 
-本教程到此为止，至于版本控制、博客功能、SEO、网站搜索、Markdown 语法、React 自定义样式等等的其他内容，请访问官网文档自行学习。
+本教程到此为止，至于版本控制、博客功能、SEO、网站搜索、Markdown 语法、React 自定义样式等等的其他内容，请访问 [官网文档](https://docusaurus.io/docs) 自行学习。
 
 通过搭建这样一个简单的文档站点，我们可以学习到静态网页和 Nginx 的工作原理、Git 工具的使用和 SSH 密钥鉴权等等全方面的知识，就算没有实际需求的人，拥有搭建这样一个站点的经历应该也是不坏的。
 
