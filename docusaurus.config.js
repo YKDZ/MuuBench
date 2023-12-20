@@ -202,6 +202,7 @@ const config = {
               {
                 label: '储存库',
                 href: 'https://github.com/YKDZ/MuuBench',
+                additionalLanguages: ['powershell', 'nginx', 'java', 'shell-session', 'yaml', 'bash'],
               },
             ],
           },

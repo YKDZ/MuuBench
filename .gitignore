@@ -1,5 +1,8 @@
-# Local History
+# VSCode & Plugins
 .history
+.frontmatter
+frontmatter.json
+.vscode
 
 # Dependencies
 /node_modules
