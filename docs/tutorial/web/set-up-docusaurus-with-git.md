@@ -15,7 +15,7 @@ tags:
 
 Docusaurus 是一个现代且高效的静态网页生成器，专注于文档和博客的生成。它由 Facebook（现名 Meta）开源和维护。使用 Docusaurus，站长可以不必过于关注站点的外观，而专注于内容的撰写。不论是发布产品文档、维护 Minecraft 服务器维基，还是编写个人博客，Docusaurus 都可以为我们节省很多时间，同时其简约大气的外观风格也十分贴合现代网站设计审美。
 
-Docusaurus 的基于 React 框架构建，编写文本内容支持 Markdown 与 MDX。所有内容 100% 可自定义，且支持自定义 CSS、自动目录生成、多目录、版本分离、中文搜索、翻译和多实例等大量附加功能，同时内置 SEO 优化策略与 PWA 实现。
+Docusaurus 基于 Nodejs 与 React 构建，编写文本内容支持 Markdown 与 MDX。所有内容 100% 可自定义，且支持自动目录生成、多目录、版本分离、中文搜索、翻译和多实例等大量附加功能，同时内置 SEO 优化策略与开箱即用的 PWA 实现，Google Lighthouse 评分可以达到全站 90+ 的水准。
 
 在本文中，我们将在一个使用 Centos 8 Stream 的云服务器中配置 Docusaurus 的运行环境并部署 Docusaurus 服务本体。之后，我们将使用 Nginx 将我们的站点绑定到特定的子域名。最后，我们将使用 Git 工具 + GitHub 储存库管理站点，以达到文档和博客的“本地编辑、实时预览、多端同步、快速更新”的效果。
 
@@ -73,7 +73,7 @@ SSH 全名 Secure Shell，是一种加密的客户端 - 服务器间连接和数
 
 Docusaurus 实际上是依赖于 Node.js 环境运行的一组 npm 软件包，所以我们需要先安装它们两者。
 
-在控制台执行以下命令，安装 NodeSource 仓库（Docusaurus 需要 Node.js 18 才能正常运行）：
+在控制台执行以下命令，安装 NodeSource 包（Docusaurus 需要 Node.js 18 才能正常运行，NodeSource 用于快速安装对应版本的 Nodejs）：
 
 ```bash
 curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -

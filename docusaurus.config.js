@@ -156,6 +156,11 @@ const config = {
             position: 'left' 
           },
           {
+            to: '/pwa',
+            label: 'PWA',
+            position: 'right',
+          },
+          {
             to: '/contact',
             label: '联系',
             position: 'right',
@@ -163,6 +168,7 @@ const config = {
           {
             href: 'https://github.com/YKDZ/MuuBench',
             position: 'right',
+            label: '储存库',
           },
         ],
       },

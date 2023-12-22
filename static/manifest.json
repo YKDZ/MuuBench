@@ -8,17 +8,17 @@
     "start_url": "./index.html",
     "icons": [
       {
-        "src": "img/icons/icon-144x144.png",
+        "src": "img/pwa-icons/144x144.png",
         "sizes": "144x144",
         "type": "image/png"
       },
       {
-        "src": "img/icons/icon-512x512.png",
+        "src": "img/pwa-icons/512x512.png",
         "sizes": "512x512",
         "type": "image/png"
       },
       {
-        "src": "img/icons/maskable_icon-512x512.png",
+        "src": "img/pwa-icons/maskable-512x512.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "any maskable"

@@ -1,0 +1,11 @@
+.introCards {
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.introCardImg {
+  height: 100px;
+  width: 100px;
+}

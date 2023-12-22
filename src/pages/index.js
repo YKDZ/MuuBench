@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import HomepageIntroCards from '@site/src/components/HomepageIntroCards';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
@@ -36,7 +36,7 @@ export default function Home() {
       description="一颗丁子的个人博客与教程和产品文档储存地">
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+        <HomepageIntroCards />
       </main>
     </Layout>
   );
