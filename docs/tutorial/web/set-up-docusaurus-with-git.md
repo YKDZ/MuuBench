@@ -173,34 +173,47 @@ systemctl enable nginx
 
 ![此处名为 docusaurus.conf](./img/set-up-docusaurus-with-git/nginx_config.png)
 
-之后，在文件中添加以下内容（其中 SSL 证书相关文件的路径记得改为你自己的存放路径）：
+之后，在文件中添加以下内容，其中 SSL 证书相关文件的路径改为你自己的存放路径，域名 muubench.cn 改为你自己的域名：
 
 ```nginx title="/conf.d/docusaurus.conf"
-# 将来自 80 端口的 http 请求重定向到 https
+# 将来自 80 端口的请求重定向到 443
 server {
     listen 80;
-    server_name wiki.encmys.cn;
-    return 301 https://$host$request_uri;
+    server_name muubench.cn; # 你的站点域名
+    # 返回一个原链接的 301 重定向
+    return 301 https://$server_name$request_uri;
 }
 
-# https 请求配置
 server {
     listen 443 ssl http2;
-    # 你的站点域名或子域名
-    server_name wiki.encmys.cn;
-    # 指定 SSL 证书文件的路径 公钥文件后缀还可能是 .crt
-    ssl_certificate  /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn_bundle.pem;
-    # 指定 SSL 私钥文件的路径
-    ssl_certificate_key /etc/nginx/wiki.encmys.cn_nginx/wiki.encmys.cn.key;
+    server_name muubench.cn; # 你的站点域名
+
+    # SSL 证书相关配置
+    # 将其中的证书路径改为你自己的存放路径
+    ssl_certificate /etc/nginx/ssl/muubench.cn/muubench.cn.pem; # 腾讯云 SSL 证书为 .crt 文件
+    ssl_certificate_key /etc/nginx/ssl/muubench.cn/muubench.cn.key; 
     ssl_session_timeout 5m;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
 
+    # 为站点开启自动 gzip 压缩
+    # 如果不需要，可以全部删除
+    gzip on;
+    # 自动压缩的文件类型
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_min_length 1000;
+    gzip_comp_level 4;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+    
     location / {
-        # 你的站点 build 目录路径
-        root /var/www/docusaurus/build;
-        index index.html index.htm index.php;
+        # 修改为你站点 build 目录所在的路径
+        root /var/www/muubench/build;
+        index index.html;
     }
 }
 ```
@@ -211,7 +224,7 @@ server {
 # http 站点配置
 server {
     listen 80;
-    server_name wiki.encmys.cn; # 你的站点域名
+    server_name mubench.cn; # 你的站点域名
 
     location / {
         root /var/www/docusaurus/build; # 你的站点 build 目录位置

@@ -208,7 +208,6 @@ const config = {
               {
                 label: '储存库',
                 href: 'https://github.com/YKDZ/MuuBench',
-                additionalLanguages: ['powershell', 'nginx', 'java', 'shell-session', 'yaml', 'bash'],
               },
             ],
           },
@@ -218,6 +217,7 @@ const config = {
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
+        additionalLanguages: ['powershell', 'nginx', 'java', 'shell-session', 'sql', 'bash'],
       },
       metadata: [
         { name: 'keywords', content: 'technique, blog, web, CSDN' },
