@@ -15,4 +15,4 @@ LandsQQBot 插件的灵感来源是 Lands 官方制作的 [LandsDiscordBot](http
 
 LandsQQBot 插件的 QQ 机器人功能由开源项目 [MiraiMC](https://github.com/DreamVoid/MiraiMC) 提供支持。
 
-LandsQQBot 继承 GPL v3.0 协议，在 [GitHub](https://github.com/YKDZ/LandsQQBot) 上开源，欢迎大佬 PR。
+LandsQQBot 继承 GPL v3.0 协议，在 [GitHub](https://github.com/YKDZ/LandsQQBot) 上开源，欢迎大佬指点作（shi）品（shan）。
