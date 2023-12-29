@@ -1,0 +1,12 @@
+.footer-record-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 -25px; /* 设置间距为 50px，由于 flex 布局，左右各占 25px */
+  }
+  
+  .footer-record-link {
+    color: white; /* 设置字体颜色为白色 */
+    margin: 0 25px; /* 设置间距为 50px */
+    text-decoration: none; /* 取消下划线 */
+  }
+  
