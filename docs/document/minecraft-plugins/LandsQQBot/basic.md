@@ -4,7 +4,7 @@ tags:
   - Spigot
   - QQ 机器人
   - Lands
-position: 3
+sidebar_position: 3
 ---
 
 # 插件使用
