@@ -122,6 +122,10 @@ const config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        gtag: {
+          trackingID: 'G-X8FR1WEFLP',
+          anonymizeIP: true,
+        },
       }),
     ],
   ],
