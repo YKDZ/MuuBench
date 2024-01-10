@@ -228,12 +228,12 @@ const config = {
       ],
       algolia: {
         // The application ID provided by Algolia
-        appId: 'YOUR_APP_ID',
+        appId: 'MPHNCL6J1G',
   
         // Public API key: it is safe to commit it
-        apiKey: 'YOUR_SEARCH_API_KEY',
+        apiKey: 'eb38ac504941aa3d4e7a1496c5449399',
   
-        indexName: 'YOUR_INDEX_NAME',
+        indexName: 'muubench',
   
         // Optional: see doc section below
         contextualSearch: true,
