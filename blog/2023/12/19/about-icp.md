@@ -70,4 +70,14 @@ tags:
 
 管局终审通过后，开始进行公安备案。
 
-跟随阿里云的指引查看[公安备案指南](https://help.aliyun.com/zh/icp-filing/user-guide/the-public-security-network-for-the-record-information-fill-in-the-guide)，发现写的很模糊，故转到[腾讯云公安备案指南](https://cloud.tencent.com/document/product/243/19142)。按照流程提供了身份证手持、域名证书电子版等资料并提交了公安备案。
+跟随阿里云的指引查看 [公安备案指南](https://help.aliyun.com/zh/icp-filing/user-guide/the-public-security-network-for-the-record-information-fill-in-the-guide) ，发现写的很模糊，故转到 [腾讯云公安备案指南](https://cloud.tencent.com/document/product/243/19142)。按照流程提供了身份证手持、域名证书电子版等资料并提交了公安备案。
+
+公安备案在约十天后通过，收到公安网站服务平台的短信。没有附上公安备案号，前往官网查询才获知。
+
+## 展示备案信息
+
+之后，需要依政策将公安备案号和 ICP 备案号粘贴到网站底部。
+
+我采取了 [Swizzling](https://docusaurus.io/docs/swizzling) Docusaurus 的 Footer 组件的方式将备案号插入站点页脚中。 
+
+至此备案全部完成。全程花费了约 20 天。
