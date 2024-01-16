@@ -438,6 +438,14 @@ git clone 你的 GitHub 仓库的 SSH 远程连接地址
 
 若想要在本地测试修改的结果是否可以正常被解析或修改的效果是否令人满意，我们可以在本地启动测试服务器。
 
+首先，我们需要在自己的主机中安装 Node.js 运行时环境。
+
+前往 [Node.js 官网](https://nodejs.org/en/download/) 下载所需版本的下载器，跟随指示安装即可。
+
+![选择所需的 Node.js 版本](./img/set-up-docusaurus-with-git/windows_download_nodejs.png)
+
+安装完成后，重新打开 VSCode 以应用新的环境。
+
 在本地的仓库文件夹中右键单击空白的位置，并用点击用终端打开：
 
 ![其实就是替代 cd 的作用](./img/set-up-docusaurus-with-git/windows_file_cd_shell.png)
@@ -475,7 +483,7 @@ npm run start
 
 同步完成后，你应该可以在 Github 仓库看到刚刚的提交了：
 
-![刚刚设置的提交名称](./img/set-up-docusaurus-with-git/gothub_local_commit_name.png)
+![刚刚设置的提交名称](./img/set-up-docusaurus-with-git/github_local_commit_name.png)
 
 同时远程仓库的文件内容当然也有所改变：
 
