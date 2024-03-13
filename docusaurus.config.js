@@ -143,8 +143,7 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'documentSidebar',
+            href: 'https://docs.encmys.cn/s/ykdz-plugin-docs',
             position: 'left',
             label: '产品文档',
           },
