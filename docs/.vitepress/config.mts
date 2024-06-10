@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "木质工作站",
-  description: "A VitePress Site",
+  description: "一颗丁子的个人文档站点",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
